@@ -118,7 +118,7 @@
                 <td>{{ $siswa->alamat }}</td>
                 <td class="action">
                     <a href="/siswa/show/{{ $siswa->id }}">Detail</a>
-                    <a href="/siswa/edit/{{ $siswa->id }}">Edit</a>
+                    <a href="/siswa/{{ $siswa->id }}/edit">Edit</a>
                     <a href="/siswa/delete/{{ $siswa->id }}" onclick="return confirm('Yakin Kah?')">Hapus</a>
                 </td>
             </tr>

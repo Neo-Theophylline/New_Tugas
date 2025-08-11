@@ -12,3 +12,7 @@ Route::post('/siswa/store', [SiswaController::class, 'store']);
 Route::get('/siswa/delete/{id}', [SiswaController::class, 'destroy']);
 
 Route::get('/siswa/show/{id}', [SiswaController::class, 'show']);
+
+Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit']);
+
+Route::put('/siswa/update/{id}', [SiswaController::class, 'update']);

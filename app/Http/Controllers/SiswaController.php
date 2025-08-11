@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\clas;
-use App\Models\user;
+use App\Models\Clas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Unique;
@@ -83,20 +83,66 @@ class SiswaController extends Controller
         }
 
         Storage::disk('public')->delete($siswa->photo);
-        
+
         $siswa->delete();
 
         return redirect('/');
     }
 
-public function show($id)  
-{
-    $datauser = User::find($id);
+    public function show($id)
+    {
+        $datauser = User::find($id);
 
-    if ($datauser != null) {
-        return view('siswa.show', compact('datauser'));
-    } else {
+        if ($datauser != null) {
+            return view('siswa.show', compact('datauser'));
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function edit($id)
+    {
+        $datauser = User::find($id);
+        $clases = Clas::all();
+        if ($datauser == null) {
+            return redirect('/');
+        }
+
+
+        return view('siswa.edit', compact('datauser', 'clases'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $datauser = User::findOrFail($id);
+        $request->validate([
+            'kelas' => 'required',
+            'name' => 'required',
+            'nisn' => 'required|unique:users,nisn,' . $id,
+            'alamat' => 'required',
+            'email' => 'required|unique:users,email,' . $id,
+            'no_handphone' => 'required|unique:users,no_handphone,' . $id,
+            'photo' => 'nullable',
+        ]);
+
+        $data = [
+            'clas_id' => $request->kelas,
+            'name' => $request->name,
+            'nisn' => $request->nisn,
+            'alamat' => $request->alamat,
+            'email' => $request->email,
+            'no_handphone' => $request->no_handphone,
+        ];
+
+        if ($request->hasFile('photo')) {
+            if ($datauser->photo && Storage::exists($datauser->photo)) {
+                Storage::disk('public')->delete($datauser->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('images', 'public');
+        }
+
+        $datauser->update($data);
+
         return redirect('/');
     }
-}
 }
