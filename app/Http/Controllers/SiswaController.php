@@ -104,13 +104,24 @@ class SiswaController extends Controller
     {
         $datauser = User::find($id);
         $clases = Clas::all();
-        if ($datauser == null) {
-            return redirect('/');
+        if ($datauser != null) {
+            session(['datauser' => $id]);
+            $clases = Clas::all();
+
+            
+            return view('siswa.edit', compact('datauser', 'clases'));
+        }
+        
+        $lastid = session('datauser');
+
+        if ($lastid &&  User::find($lastid)) {
+            return redirect('/siswa/' . $lastid . '/edit');
         }
 
+        return redirect('/'); // Redirect to a default page if no user found
 
-        return view('siswa.edit', compact('datauser', 'clases'));
     }
+
 
     public function update(Request $request, $id)
     {
@@ -131,6 +142,7 @@ class SiswaController extends Controller
             'nisn' => $request->nisn,
             'alamat' => $request->alamat,
             'email' => $request->email,
+            'password' => bcrypt($request->password),
             'no_handphone' => $request->no_handphone,
         ];
 

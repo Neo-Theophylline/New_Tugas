@@ -141,7 +141,10 @@
         <label for="no_handphone">No. HP</label>
         <input type="text" name="no_handphone" id="no_handphone" value="{{ $datauser->no_handphone }}" required>
 
-        <label for="photo">Ganti Foto (Opsional)</label>
+         <label for="password">Ganti Password (kalau mau)</label>
+        <input type="text" name="password" id="password" >
+
+        <label for="photo">Ganti Foto (kalau mau)</label>
         <input type="file" name="photo" id="photo" accept="image/*">
 
         @if ($datauser->photo)
@@ -151,10 +154,10 @@
         @endif
 
         <div class="form-footer">
-            <button type="submit" class="btn-submit" onclick="return confirm('Sudah fix kahhhhhh?')">
-                Simpan Perubahan
+            <button type="submit" class="btn-submit">
+                Simpan
             </button>
-            <a href="/siswa/index"><button type="button" class="btn-back">Kembali</button></a>
+            <a href="/"><button type="button" class="btn-back">Kembali</button></a>
         </div>
     </form>
 
