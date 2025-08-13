@@ -146,13 +146,16 @@ class SiswaController extends Controller
             'no_handphone' => $request->no_handphone,
         ];
 
+        if (!empty ($request->password)) { 
+            $data['password'] = bcrypt($request->password);
+        }
+
         if ($request->hasFile('photo')) {
-            if ($datauser->photo && Storage::exists($datauser->photo)) {
+            if ($datauser->photo && Storage::disk('public')->exists($datauser->photo)) {
                 Storage::disk('public')->delete($datauser->photo);
             }
             $data['photo'] = $request->file('photo')->store('images', 'public');
         }
-
         $datauser->update($data);
 
         return redirect('/');
