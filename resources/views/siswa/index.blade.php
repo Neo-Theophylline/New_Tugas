@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Awal</title>
-    <style>
+@section('judul')
+blablabla
+@endsection
+
+@section('css')
+<style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #f4f4f4;
@@ -84,16 +84,20 @@
             text-align: right;
         }
     </style>
-</head>
+@endsection
 
-<body>
-    <h1>Halaman Awal</h1>
+@section('judulheader')
+Data Siswa
+@endsection
 
+@section('content')  
+          <a href="/clas" class="btn-tambah">Data Kelas</a>
     <div class="top-bar">
         <a href="/siswa/create" class="btn-tambah">+ Tambah Siswa</a>
     </div>
 
-    <table>
+
+    <table border="1">
         <thead>
             <tr>
                 <th>Photo</th>
@@ -105,26 +109,29 @@
         </thead>
         <tbody>
             @foreach ($siswas as $siswa)
-            <tr>
-                <td>
-                    @if ($siswa->photo)
-                        <img src="{{ asset('storage/'.$siswa->photo) }}">
-                    @else
-                        <span style="color: #888;">Tidak ada foto</span>
-                    @endif
-                </td>
-                <td>{{ $siswa->name }}</td>
-                <td>{{ $siswa->clas->name }}</td>
-                <td>{{ $siswa->alamat }}</td>
-                <td class="action">
-                    <a href="/siswa/show/{{ $siswa->id }}">Detail</a>
-                    <a href="/siswa/{{ $siswa->id }}/edit">Edit</a>
-                    <a href="/siswa/delete/{{ $siswa->id }}" onclick="return confirm('Yakin Kah?')">Hapus</a>
-                </td>
-            </tr>
-            @endforeach
+    @if(optional($siswa->clas)->name)
+        <tr>
+            <td>
+                @if ($siswa->photo)
+                    <img src="{{ asset('storage/'.$siswa->photo) }}">
+                @else
+                    <span style="color: #888;">Tidak ada foto</span>
+                @endif
+            </td>
+            <td>{{ $siswa->name }}</td>
+            <td>{{ optional($siswa->clas)->name }}</td>
+            <td>{{ $siswa->alamat }}</td>
+            <td class="action">
+                <a href="/siswa/show/{{ $siswa->id }}">Detail</a>
+                <a href="/siswa/{{ $siswa->id }}/edit">Edit</a>
+                <a href="/siswa/delete/{{ $siswa->id }}" onclick="return confirm('Yakin Kah?')">Hapus</a>
+            </td>
+        </tr>
+    @endif
+@endforeach
+
         </tbody>
     </table>
 </body>
-
-</html>
+@endsection
+    

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Siswa</title>
-    <style>
+@section('judul')
+edit
+@endsection
+
+@section('css')
+ <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #f4f4f4;
@@ -107,11 +107,15 @@
             border: 2px solid #ccc;
         }
     </style>
-</head>
+@endsection
 
+@section('judulheader')
+edit
+@endsection
+
+@section('content')
 <body>
 
-    <h1>Edit Data Siswa</h1>
 
     <form action="/siswa/update/{{ $datauser->id }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -162,5 +166,5 @@
     </form>
 
 </body>
-
-</html>
+@endsection
+    

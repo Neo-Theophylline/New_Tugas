@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Siswa</title>
-    <style>
+@section('judul')
+detail
+@endsection
+
+@section('css')
+ <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #f4f4f4;
@@ -71,8 +71,13 @@
             margin-bottom: 20px;
         }
     </style>
-</head>
+@endsection
 
+@section('judulheader')
+detail
+@endsection
+
+@section('content')
 <body>
 
     <h1>Detail Siswa</h1>
@@ -94,5 +99,5 @@
     </div>
 
 </body>
-
-</html>
+@endsection
+    
